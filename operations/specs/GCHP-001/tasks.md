@@ -6,4 +6,4 @@
 - [x] T004 Write market, intent, management, and learning skills.
 - [x] T005 Implement setup and distribution integrity verification.
 - [x] T006 Add and pass unit/static tests.
-- [ ] T007 Update rail evidence and open the coordinated draft PR.
+- [x] T007 Update rail evidence and open the coordinated draft PR.
