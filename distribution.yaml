@@ -1,0 +1,26 @@
+name: glitch-crypto
+version: 0.1.0
+description: "Experimental Glitch Crypto AI operator profile"
+hermes_requires: ">=0.18.2"
+author: "GlitchTrader"
+source: github.com/GlitchTrader/glitch-crypto-hermes-profile
+distribution_owned:
+  - distribution.yaml
+  - SOUL.md
+  - operator.json
+  - paired-contract.json
+  - config.yaml
+  - .github
+  - .specify
+  - operations
+  - skills
+  - plugins
+  - scripts
+  - tests
+  - docs
+  - setup.ps1
+  - README.md
+  - AGENTS.md
+  - .gitignore
+  - .env.EXAMPLE
+  - SHA256SUMS

@@ -1,0 +1,14 @@
+{
+  "schema_version": "glitch.crypto.paired-contract.v1",
+  "gateway_repository": "GlitchTrader/glitch-crypto",
+  "profile_repository": "GlitchTrader/glitch-crypto-hermes-profile",
+  "gateway_packet_schema": "glitch.crypto.packet.v1",
+  "intent_schema": "glitch.crypto.intent.v1",
+  "receipt_schema": "glitch.crypto.intent-receipt.v1",
+  "gateway_health_schema": "glitch.crypto.health.v1",
+  "gateway_state_schema": "glitch.crypto.state.v1",
+  "minimum_gateway_version": "0.1.0",
+  "profile_version": "0.1.0",
+  "authority": "Hermes judges; Glitch validates, sizes, protects, executes, reconciles, and journals; the venue owns native truth.",
+  "execution_credentials_in_profile": false
+}

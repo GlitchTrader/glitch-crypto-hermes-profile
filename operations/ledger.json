@@ -1,0 +1,76 @@
+{
+  "schema_version": "architectonic.rail.v1",
+  "metadata": {
+    "project": "glitch-crypto-hermes-profile",
+    "updated_utc": "2026-08-24T20:30:00Z",
+    "parent_map": "https://github.com/GlitchTrader/glitch-crypto/issues/1",
+    "status_authority": "operations/ledger.json"
+  },
+  "rail": {
+    "active": "GCHP-001",
+    "items": [
+      {
+        "id": "GCHP-001",
+        "title": "Establish the interactive protected crypto operator",
+        "status": "active",
+        "priority": "P0",
+        "dependencies": [
+          "GC-001"
+        ],
+        "ticket": "https://github.com/GlitchTrader/glitch-crypto/issues/2",
+        "spec": "operations/specs/GCHP-001/spec.md",
+        "acceptance": [
+          "no exchange credentials or direct venue mutation",
+          "deterministic status/start/stop/flatten/lock/limit commands",
+          "strict intent construction skill",
+          "noise-versus-edge and active-management doctrine",
+          "three-lane evidence-gated learning",
+          "distribution verification and tests pass"
+        ],
+        "evidence": [
+          "local: python3 scripts/verify_distribution.py — 30 distribution-owned files verified",
+          "local: python3 -m unittest discover -s tests -p test_*.py — 9/9 passing",
+          "local integration: deterministic profile client and slash-command handlers exercised against the live paper gateway smoke process"
+        ],
+        "notes": "Substantive work remains on architect/gchp-001-foundation and an unmerged PR."
+      },
+      {
+        "id": "GCHP-002",
+        "title": "Implement event-triggered candidate and position workers",
+        "status": "ready",
+        "priority": "P0",
+        "dependencies": [
+          "GCHP-001",
+          "GC-002",
+          "GC-003"
+        ],
+        "acceptance": [
+          "candidate events are durable and idempotent",
+          "position events preempt slower learning",
+          "strict output and bounded repair are proven",
+          "failed model calls create no new exposure"
+        ],
+        "evidence": [],
+        "notes": "Do not replace this with a blind one-minute polling loop."
+      },
+      {
+        "id": "GCHP-003",
+        "title": "Implement attributable three-lane learning supervisor",
+        "status": "blocked",
+        "priority": "P0",
+        "dependencies": [
+          "GCHP-002",
+          "GC-003"
+        ],
+        "acceptance": [
+          "completed and matured no-trade episodes are attributable",
+          "operational defects are quarantined",
+          "lesson promotion requires independent evidence and rollback",
+          "prompt/model treatments are versioned"
+        ],
+        "evidence": [],
+        "notes": "No self-editing production loop."
+      }
+    ]
+  }
+}
