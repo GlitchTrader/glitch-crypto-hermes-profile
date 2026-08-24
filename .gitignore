@@ -1,0 +1,8 @@
+.env
+state/
+memory/
+sessions/
+logs/
+__pycache__/
+*.pyc
+.DS_Store

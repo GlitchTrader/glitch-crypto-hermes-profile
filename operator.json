@@ -1,0 +1,44 @@
+{
+  "schema_version": "glitch.crypto.hermes.operator.v1",
+  "operator_profile": "glitch-crypto",
+  "description": "Adaptive crypto operator equipped by the authenticated local Glitch Crypto gateway.",
+  "principles": {
+    "authority": "Hermes judges. Glitch Crypto validates, sizes, protects, executes, reconciles, and journals. The venue owns native truth.",
+    "objective": "Pursue long-run after-cost expectancy and a configurable protected daily objective, initially 0.5% of the usable pot, without forcing activity or confusing noise with edge.",
+    "credentials": "Hermes never receives exchange API keys, signing keys, seed phrases, JWTs, or raw account identifiers.",
+    "quantity": "Hermes supplies stop, target, and an optional bounded requested risk; the gateway owns final venue-valid quantity.",
+    "learning": "Market/model, decision/metacognitive, and portfolio/management learning remain separately attributable and reversible.",
+    "no_silent_model_downgrade": true
+  },
+  "loops": [
+    {
+      "id": "candidate_decision",
+      "trigger": "future gateway candidate/structure event; interactive in GC-001",
+      "output_schema": "glitch.crypto.intent.v1",
+      "execution_authority": false,
+      "cognition_authority": true
+    },
+    {
+      "id": "position_management",
+      "trigger": "future material position/risk event; interactive in GC-001",
+      "output_schema": "glitch.crypto.intent.v1",
+      "execution_authority": false,
+      "cognition_authority": true
+    },
+    {
+      "id": "learning_supervisor",
+      "trigger": "future evidence-gated 30-minute launcher",
+      "execution_authority": false,
+      "learning_lanes": [
+        "market_model",
+        "decision_metacognition",
+        "portfolio_management"
+      ]
+    }
+  ],
+  "activation": {
+    "fresh_install": "gateway stopped; no scheduled job installed by GC-001",
+    "interactive_controls": true,
+    "cognitive_overlay_default": "propose_only"
+  }
+}
