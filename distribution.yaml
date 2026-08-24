@@ -21,6 +21,7 @@ distribution_owned:
   - setup.ps1
   - README.md
   - AGENTS.md
+  - .gitattributes
   - .gitignore
   - .env.EXAMPLE
   - SHA256SUMS
