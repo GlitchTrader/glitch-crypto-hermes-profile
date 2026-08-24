@@ -2,7 +2,7 @@
   "schema_version": "architectonic.rail.v1",
   "metadata": {
     "project": "glitch-crypto-hermes-profile",
-    "updated_utc": "2026-08-24T20:30:00Z",
+    "updated_utc": "2026-08-24T19:35:00Z",
     "parent_map": "https://github.com/GlitchTrader/glitch-crypto/issues/1",
     "status_authority": "operations/ledger.json"
   },
@@ -30,9 +30,13 @@
         "evidence": [
           "local: python3 scripts/verify_distribution.py — 30 distribution-owned files verified",
           "local: python3 -m unittest discover -s tests -p test_*.py — 9/9 passing",
-          "local integration: deterministic profile client and slash-command handlers exercised against the live paper gateway smoke process"
+          "local integration: deterministic profile client and slash-command handlers exercised against the live paper gateway smoke process",
+          "remote: architect/gchp-001-foundation commit c083e589b3205ec01c4f688302beadcff5023228",
+          "review: draft PR https://github.com/GlitchTrader/glitch-crypto-hermes-profile/pull/1 paired with https://github.com/GlitchTrader/glitch-crypto/pull/3"
         ],
-        "notes": "Substantive work remains on architect/gchp-001-foundation and an unmerged PR."
+        "notes": "Draft PR #1 is open and unmerged; GCHP-001 remains active until CI and coordinated review acceptance.",
+        "pull_request": "https://github.com/GlitchTrader/glitch-crypto-hermes-profile/pull/1",
+        "paired_pull_request": "https://github.com/GlitchTrader/glitch-crypto/pull/3"
       },
       {
         "id": "GCHP-002",
