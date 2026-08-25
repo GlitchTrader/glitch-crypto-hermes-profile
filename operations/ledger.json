@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "glitch-crypto-hermes-profile",
-  "updated": "2026-08-25T01:23:58Z",
+  "updated": "2026-08-25T01:32:47Z",
   "roadmap_ref": "https://github.com/GlitchTrader/glitch-crypto/issues/1",
   "items": [
     {
@@ -72,7 +72,7 @@
     {
       "id": "GCHP-003",
       "title": "Implement the attributable three-lane learning supervisor",
-      "status": "in_progress",
+      "status": "done",
       "priority": "P0",
       "owner_role": "builder",
       "acceptance": [
@@ -84,8 +84,13 @@
       "depends_on": [
         "GCHP-002"
       ],
-      "evidence": [],
+      "evidence": [
+        "Commit e6a6b3a implements immutable treatment-versioned episodes, operational quarantine, independent-support eligibility, contradiction review, expiry/rollback, and separate chronological human promotion decisions.",
+        "Profile distribution verification passed for 57 owned files and 26 of 26 deterministic tests passed.",
+        "Profile issue #4 records the completed dormant learning source contract and its runtime/performance exclusions."
+      ],
       "sources": [
+        "https://github.com/GlitchTrader/glitch-crypto-hermes-profile/issues/4",
         "operations/specs/GCHP-003/spec.md",
         "operations/ontology.md",
         "skills/crypto-learn/SKILL.md"
@@ -95,12 +100,14 @@
         "claimed_at": "2026-08-25T01:23:58Z"
       },
       "stop_line": "Do not install a learning schedule, self-edit source, activate a lesson or model route, or claim improved expectancy from fixture-only evidence.",
-      "notes": "The attributable learning source contract is active work. Runtime episode production and replay baselines remain dependent on gateway GC-003.",
+      "completed_at": "2026-08-25T01:32:47Z",
+      "notes": "This item accepts the dormant evidence, eligibility, and governance source only. Gateway episode production, replay/holdout evaluation, promotion authentication/UI, scheduling, and improved expectancy remain unaccepted.",
       "extensions": {
-        "external_dependencies": [
+        "activation_dependencies": [
           "glitch-crypto:GC-003"
         ],
-        "active_spec": "operations/specs/GCHP-003/spec.md"
+        "active_spec": "operations/specs/GCHP-003/spec.md",
+        "learning_supervisor_source": "implemented_dormant"
       }
     }
   ],

@@ -18,7 +18,7 @@
 ## Verification and evidence
 
 - [x] T008 Regenerate `SHA256SUMS`, verify distribution, and run all tests.
-- [ ] T009 Update Rail and tracker evidence without claiming runtime learning acceptance.
+- [x] T009 Update Rail and tracker evidence without claiming runtime learning acceptance.
 
 ## Dependencies and stop lines
 
