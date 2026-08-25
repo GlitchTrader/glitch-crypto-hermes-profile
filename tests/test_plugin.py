@@ -76,14 +76,32 @@ class FakeClient:
         return {"journal": [], "limit": limit}
 
 
+class FakeOperator:
+    @staticmethod
+    def launch_shadow_operator():
+        return {"started": True, "already_running": False, "pid": 1234}
+
+    @staticmethod
+    def shadow_operator_status():
+        return {
+            "running": True,
+            "pid": 1234,
+            "last_event_id": "event-1",
+            "last_result": "submitted",
+        }
+
+
 class PluginTests(unittest.TestCase):
     def setUp(self) -> None:
         self.client = FakeClient()
         self.original_client = plugin._client
+        self.original_operator = plugin._operator_module
         plugin._client = lambda: self.client
+        plugin._operator_module = lambda: FakeOperator
 
     def tearDown(self) -> None:
         plugin._client = self.original_client
+        plugin._operator_module = self.original_operator
 
     def test_registers_hyphen_and_underscore_commands(self) -> None:
         context = FakeContext()
@@ -91,6 +109,8 @@ class PluginTests(unittest.TestCase):
         for name in (
             "crypto-status",
             "crypto_status",
+            "crypto-operator",
+            "crypto_operator",
             "daily-lock",
             "daily_lock",
             "usable-limit",
@@ -106,8 +126,11 @@ class PluginTests(unittest.TestCase):
         self.assertIn("$500.0", plugin._usable_limit("500"))
         self.assertIn("cleared", plugin._usable_limit("full"))
 
-    def test_start_and_flatten_are_deterministic(self) -> None:
-        self.assertIn("running=True", plugin._trade(""))
+    def test_start_launches_the_event_worker_and_flatten_stops_exposure(self) -> None:
+        started = plugin._trade("")
+        self.assertIn("running=True", started)
+        self.assertIn("operator_pid=1234", started)
+        self.assertIn("operator_started=True", started)
         self.assertIn("flat and stopped", plugin._flatten("test"))
 
 
