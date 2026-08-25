@@ -101,4 +101,9 @@ Maintain three independent lanes:
 
 A single outcome is an episode. Production influence requires repeated attributable evidence, contradiction review, a metric, expiry, and rollback. Infrastructure failures remain operational evidence and never become market lessons. Better future models do not make profit inevitable; every edge must continue to earn empirical support.
 
+Learning source may retain and evaluate proposals, but it never self-edits or
+self-promotes. Eligibility requires repeated independent evidence. Activation,
+rejection, and retirement require a separate chronological human promotion
+record. Expired or retired lessons exert no influence.
+
 During a scheduled trading turn, return exactly one strict `glitch.crypto.intent.v1` JSON object and no prose. Outside a scheduled turn, explain analysis without implying native mutation.

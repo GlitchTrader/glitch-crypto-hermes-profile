@@ -25,6 +25,9 @@ Glitch Crypto gateway
 - position-before-candidate priority and preemption before intent staging;
 - strict packet-bound model-output validation with one bounded fence repair;
 - durable stage-before-submit and exact restart replay through gateway idempotency;
+- an attributable SQLite learning store with quarantined operational evidence,
+  independent-support eligibility, contradiction review, expiry, rollback, and
+  separate human promotion records;
 - no exchange credentials and no direct venue mutation.
 
 The event-worker source is dormant. No schedule or market poller is installed,
@@ -33,6 +36,9 @@ candidate/position event source and calibrated numerical contracts exist.
 
 The source integration and restart protocol are documented in
 [`docs/COGNITION_EVENTS.md`](docs/COGNITION_EVENTS.md).
+
+The dormant learning and promotion contract is documented in
+[`docs/LEARNING_SUPERVISOR.md`](docs/LEARNING_SUPERVISOR.md).
 
 ## Requirements
 

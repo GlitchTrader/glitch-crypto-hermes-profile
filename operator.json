@@ -32,8 +32,13 @@
     },
     {
       "id": "learning_supervisor",
-      "trigger": "future evidence-gated 30-minute launcher",
+      "trigger": "future accepted gateway episodes; source store implemented but no launcher scheduled",
       "execution_authority": false,
+      "episode_schema": "glitch.crypto.learning-episode.v1",
+      "lesson_schema": "glitch.crypto.lesson-proposal.v1",
+      "promotion_schema": "glitch.crypto.promotion-decision.v1",
+      "automatic_promotion": false,
+      "source_self_edit": false,
       "learning_lanes": [
         "market_model",
         "decision_metacognition",
@@ -45,6 +50,7 @@
     "fresh_install": "gateway stopped; no scheduled job installed by GCHP-001 or GCHP-002",
     "interactive_controls": true,
     "cognitive_overlay_default": "propose_only",
-    "event_worker_source": "dormant_until_gateway_event_contracts_are_accepted"
+    "event_worker_source": "dormant_until_gateway_event_contracts_are_accepted",
+    "learning_supervisor_source": "dormant_until_gateway_episode_and_replay_contracts_are_accepted"
   }
 }

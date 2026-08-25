@@ -64,6 +64,21 @@ invoked by a human through separate operator authority.
 Attributable completed trade, matured no-trade observation, decision review, or
 position-management result. Operational defects remain a separate evidence class.
 
+### TreatmentIdentity
+
+Immutable provider, model, reasoning, SOUL, prompt, skill, memory, numerical-model,
+and feature version set attached to every episode.
+
+### LessonProposal
+
+Lane-specific, evidence-linked claim with conditions, independent support,
+contradictions and review, confidence, metric, expiry, rollback, and proposed state.
+
+### PromotionDecision
+
+Separate chronological human governance record that activates, rejects, or
+retires one eligible lesson. It is never emitted by the learning evaluator.
+
 ### CognitiveInfluence
 
 Versioned hypothesis, model/prompt treatment, or bounded lesson with evidence,
@@ -78,4 +93,7 @@ metric, expiry, contradiction state, and rollback.
 - Position preemption is allowed only before intent staging.
 - A staged intent survives restart and is replayed without another model call.
 - One outcome cannot activate a lesson.
+- Correlated episodes do not count as independent confirmation.
+- Operational episodes cannot support or contradict a trading lesson.
+- Only nonexpired, human-promoted lessons can become active influences.
 - The daily objective is portfolio context, never edge or a quota.

@@ -8,9 +8,13 @@
   "gateway_health_schema": "glitch.crypto.health.v1",
   "gateway_state_schema": "glitch.crypto.state.v1",
   "cognition_event_schema": "glitch.crypto.cognition-event.v1",
+  "learning_episode_schema": "glitch.crypto.learning-episode.v1",
+  "lesson_proposal_schema": "glitch.crypto.lesson-proposal.v1",
+  "promotion_decision_schema": "glitch.crypto.promotion-decision.v1",
   "minimum_gateway_version": "0.2.2",
-  "profile_version": "0.2.0",
+  "profile_version": "0.3.0",
   "staged_intent_replay": true,
+  "automatic_lesson_promotion": false,
   "authority": "Hermes judges; Glitch validates, sizes, protects, executes, reconciles, and journals; the venue owns native truth.",
   "execution_credentials_in_profile": false
 }

@@ -35,3 +35,17 @@ status
 ```
 
 One outcome cannot activate a lesson. Correlated trades are one market idea unless independence is proven. Counterfactuals remain simulated and never become realized PnL. Infrastructure defects go to the operational ledger, not trading memory.
+
+## Durable supervisor contract
+
+- Retain only strict `glitch.crypto.learning-episode.v1` episodes with complete
+  treatment identity and evidence references.
+- Require at least two supporting episodes from two correlation groups in the
+  same lane before eligibility.
+- Record contradicting episode IDs, disposition, and review; unresolved or
+  dominating contradiction blocks eligibility.
+- Produce proposals only. Activation, rejection, and retirement require a
+  separate chronological `glitch.crypto.promotion-decision.v1` with an external
+  human approval ID.
+- Never edit SOUL, skills, source, policy, model routes, or gateway state.
+- Never install or imply a schedule from the existence of the source store.
