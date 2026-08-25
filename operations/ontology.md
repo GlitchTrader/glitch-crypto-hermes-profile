@@ -32,6 +32,23 @@ It carries no credential or mutation authority.
 Higher-priority durable request to compare hold, amend, partial, and exit paths
 for a gateway-proven open position.
 
+### EventClaim
+
+Bounded lease over one durable cognition event. Position claims outrank queued
+candidate claims, and a new position event requests preemption of unstaged
+candidate work.
+
+### StagedIntent
+
+Schema-valid, packet-bound intent durably retained before gateway submission.
+After staging, its UUID and body cannot be changed; unresolved transport is
+recovered by replaying that exact intent through the gateway.
+
+### CognitionReceipt
+
+The paired gateway receipt retained against one staged intent. Model completion
+or profile transport success is never substituted for this receipt.
+
 ### TradingIntent
 
 Strict `glitch.crypto.intent.v1` decision. Geometry and requested risk express
@@ -58,5 +75,7 @@ metric, expiry, contradiction state, and rollback.
 - A failed or malformed model call creates no exposure.
 - Position events preempt candidate analysis and slow learning.
 - Quantity and venue mutation are never profile-owned.
+- Position preemption is allowed only before intent staging.
+- A staged intent survives restart and is replayed without another model call.
 - One outcome cannot activate a lesson.
 - The daily objective is portfolio context, never edge or a quota.

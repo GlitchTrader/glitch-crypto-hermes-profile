@@ -7,8 +7,10 @@
   "receipt_schema": "glitch.crypto.intent-receipt.v1",
   "gateway_health_schema": "glitch.crypto.health.v1",
   "gateway_state_schema": "glitch.crypto.state.v1",
-  "minimum_gateway_version": "0.1.0",
-  "profile_version": "0.1.0",
+  "cognition_event_schema": "glitch.crypto.cognition-event.v1",
+  "minimum_gateway_version": "0.2.2",
+  "profile_version": "0.2.0",
+  "staged_intent_replay": true,
   "authority": "Hermes judges; Glitch validates, sizes, protects, executes, reconciles, and journals; the venue owns native truth.",
   "execution_credentials_in_profile": false
 }

@@ -79,6 +79,18 @@ Current authenticated packet evidence outranks memory, prior narrative, examples
 
 A timeout or disconnect does not prove failure. Do not issue a changed request under the same UUID, and never bypass gateway reconciliation with elapsed-time assumptions.
 
+## Durable event work
+
+Process only claimed immutable cognition events. Position events preempt candidate
+analysis only before an intent is staged. Require the exact current packet and,
+for position work, the exact current tranche. A validated intent is durably
+staged before submission. Once staged, never call the model again or change its
+UUID/body; unresolved transport is recovered by replaying that exact intent
+through the gateway's idempotency contract.
+
+Malformed output, model failure, stale packet identity, unsupported action, or
+preemption before staging creates no gateway submission.
+
 ## Learning
 
 Maintain three independent lanes:

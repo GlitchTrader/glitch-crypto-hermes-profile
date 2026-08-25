@@ -16,4 +16,4 @@ if (-not (Test-Path (Join-Path $root '.env'))) {
 & $python.Source -m unittest discover -s tests -p 'test_*.py'
 
 Write-Host 'Glitch Crypto profile verified.'
-Write-Host 'No scheduled trading job is installed by GC-001; use the interactive profile and deterministic slash commands.'
+Write-Host 'No scheduled trading job is installed by GCHP-001 or GCHP-002; use the interactive profile and deterministic slash commands.'

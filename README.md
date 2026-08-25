@@ -14,16 +14,25 @@ Glitch Crypto gateway
 
 ## Current state
 
-`GCHP-001` provides:
+`main` provides:
 
 - constitutional authority and objective doctrine;
 - crypto market, intent, position-management, and learning skills;
 - deterministic slash commands for status, start, stop, flatten, daily lock, usable limit, PnL, trades, and journal;
 - a standard-library authenticated gateway client;
 - strict paired schema metadata and tests;
+- a durable SQLite cognition-event inbox with UUID/body replay protection;
+- position-before-candidate priority and preemption before intent staging;
+- strict packet-bound model-output validation with one bounded fence repair;
+- durable stage-before-submit and exact restart replay through gateway idempotency;
 - no exchange credentials and no direct venue mutation.
 
-GC-001 is interactive. It intentionally does not install a fake polling operator or claim event-driven autonomy before the gateway candidate-event and learning-worker contracts exist.
+The event-worker source is dormant. No schedule or market poller is installed,
+and the profile does not claim autonomous operation before an accepted gateway
+candidate/position event source and calibrated numerical contracts exist.
+
+The source integration and restart protocol are documented in
+[`docs/COGNITION_EVENTS.md`](docs/COGNITION_EVENTS.md).
 
 ## Requirements
 

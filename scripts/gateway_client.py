@@ -166,7 +166,10 @@ class GatewayClient:
         )
 
     def submit_intent(self, intent: dict[str, Any]) -> dict[str, Any]:
-        return self.require("/intent", method="POST", body=intent, auth="model")
+        status, value = self.request("/intent", method="POST", body=intent, auth="model")
+        if status in {200, 409, 422} and value.get("schema_version") == "glitch.crypto.intent-receipt.v1":
+            return value
+        raise RuntimeError(f"gateway returned {status}: {json.dumps(value, separators=(',', ':'))}")
 
 
 def status_summary(client: GatewayClient) -> str:

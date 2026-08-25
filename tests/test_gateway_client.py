@@ -37,6 +37,17 @@ class GatewayClientTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, "must differ"):
                     client_module.GatewayClient()
 
+    def test_terminal_intent_receipt_is_returned_for_gateway_rejection(self) -> None:
+        client = object.__new__(client_module.GatewayClient)
+        receipt = {
+            "schema_version": "glitch.crypto.intent-receipt.v1",
+            "intent_id": "22222222-2222-4222-8222-222222222222",
+            "state": "rejected",
+            "accepted": False,
+        }
+        client.request = lambda *args, **kwargs: (422, receipt)
+        self.assertEqual(client.submit_intent({"intent_id": receipt["intent_id"]}), receipt)
+
 
 if __name__ == "__main__":
     unittest.main()

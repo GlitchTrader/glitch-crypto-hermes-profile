@@ -13,17 +13,22 @@
   "loops": [
     {
       "id": "candidate_decision",
-      "trigger": "future gateway candidate/structure event; interactive in GC-001",
+      "trigger": "durable candidate event from a future accepted gateway event source; source boundary implemented but not scheduled",
+      "input_schema": "glitch.crypto.cognition-event.v1",
       "output_schema": "glitch.crypto.intent.v1",
       "execution_authority": false,
-      "cognition_authority": true
+      "cognition_authority": true,
+      "durable_stage_before_submit": true
     },
     {
       "id": "position_management",
-      "trigger": "future material position/risk event; interactive in GC-001",
+      "trigger": "durable material position/risk event from a future accepted gateway event source; source boundary implemented but not scheduled",
+      "input_schema": "glitch.crypto.cognition-event.v1",
       "output_schema": "glitch.crypto.intent.v1",
       "execution_authority": false,
-      "cognition_authority": true
+      "cognition_authority": true,
+      "preempts_unstaged_candidate_work": true,
+      "durable_stage_before_submit": true
     },
     {
       "id": "learning_supervisor",
@@ -37,8 +42,9 @@
     }
   ],
   "activation": {
-    "fresh_install": "gateway stopped; no scheduled job installed by GC-001",
+    "fresh_install": "gateway stopped; no scheduled job installed by GCHP-001 or GCHP-002",
     "interactive_controls": true,
-    "cognitive_overlay_default": "propose_only"
+    "cognitive_overlay_default": "propose_only",
+    "event_worker_source": "dormant_until_gateway_event_contracts_are_accepted"
   }
 }

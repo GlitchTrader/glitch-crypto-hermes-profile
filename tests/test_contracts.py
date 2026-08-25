@@ -23,6 +23,7 @@ class ContractTests(unittest.TestCase):
             "crypto-build-intent",
             "crypto-position-management",
             "crypto-learn",
+            "crypto-event-worker",
         ):
             self.assertTrue((ROOT / "skills" / name / "SKILL.md").is_file())
         soul = (ROOT / "SOUL.md").read_text(encoding="utf-8")
@@ -30,7 +31,7 @@ class ContractTests(unittest.TestCase):
         self.assertIn("not calibrated probability", soul)
         self.assertIn("omit quantity", soul)
 
-    def test_gc001_does_not_install_a_fake_cron_worker(self) -> None:
+    def test_profile_does_not_install_a_fake_cron_worker(self) -> None:
         setup = (ROOT / "setup.ps1").read_text(encoding="utf-8")
         self.assertNotIn("cron", setup.lower())
         self.assertIn("No scheduled trading job", setup)
