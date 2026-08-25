@@ -18,7 +18,7 @@
 ## Verification and evidence
 
 - [x] T008 Regenerate `SHA256SUMS`, verify distribution, and run all tests.
-- [ ] T009 Update Rail and tracker evidence without overstating activation.
+- [x] T009 Update Rail and tracker evidence without overstating activation.
 
 ## Dependencies and stop lines
 

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "glitch-crypto-hermes-profile",
-  "updated": "2026-08-25T00:34:52Z",
+  "updated": "2026-08-25T01:23:58Z",
   "roadmap_ref": "https://github.com/GlitchTrader/glitch-crypto/issues/1",
   "items": [
     {
@@ -35,8 +35,8 @@
     },
     {
       "id": "GCHP-002",
-      "title": "Implement event-triggered candidate and position workers",
-      "status": "blocked",
+      "title": "Implement the durable event-triggered cognition boundary",
+      "status": "done",
       "priority": "P0",
       "owner_role": "builder",
       "acceptance": [
@@ -48,24 +48,31 @@
       "depends_on": [
         "GCHP-001"
       ],
-      "evidence": [],
+      "evidence": [
+        "Commit 2b2b49d implements immutable cognition events, SQLite WAL/FULL-sync leases, position-before-candidate preemption, strict packet-bound intent validation, durable stage-before-submit, and exact restart replay.",
+        "Profile distribution verification passed for 49 owned files and 19 of 19 deterministic tests passed.",
+        "Profile issue #3 records the completed dormant source boundary and its activation exclusions."
+      ],
       "sources": [
+        "https://github.com/GlitchTrader/glitch-crypto-hermes-profile/issues/3",
+        "operations/specs/GCHP-002/spec.md",
         "operations/ontology.md",
         "docs/AUTHORITY.md"
       ],
-      "blocked_reason": "The gateway venue adapter and calibrated event contracts in GC-002 and GC-003 are not accepted.",
-      "notes": "Do not replace event triggers with a blind one-minute polling loop.",
+      "completed_at": "2026-08-25T01:23:58Z",
+      "notes": "This item accepts the dormant consumer and recovery boundary only. No event source, model invocation adapter, schedule, profile installation, Testnet mutation, or live operation is accepted.",
       "extensions": {
-        "external_dependencies": [
+        "activation_dependencies": [
           "glitch-crypto:GC-002",
           "glitch-crypto:GC-003"
-        ]
+        ],
+        "event_worker_source": "implemented_dormant"
       }
     },
     {
       "id": "GCHP-003",
       "title": "Implement the attributable three-lane learning supervisor",
-      "status": "blocked",
+      "status": "in_progress",
       "priority": "P0",
       "owner_role": "builder",
       "acceptance": [
@@ -78,12 +85,22 @@
         "GCHP-002"
       ],
       "evidence": [],
-      "blocked_reason": "GCHP-002 and the gateway replay baseline in GC-003 are not done.",
-      "notes": "The production profile must not contain a self-editing loop.",
+      "sources": [
+        "operations/specs/GCHP-003/spec.md",
+        "operations/ontology.md",
+        "skills/crypto-learn/SKILL.md"
+      ],
+      "claim": {
+        "assignee": "AIbert (Codex)",
+        "claimed_at": "2026-08-25T01:23:58Z"
+      },
+      "stop_line": "Do not install a learning schedule, self-edit source, activate a lesson or model route, or claim improved expectancy from fixture-only evidence.",
+      "notes": "The attributable learning source contract is active work. Runtime episode production and replay baselines remain dependent on gateway GC-003.",
       "extensions": {
         "external_dependencies": [
           "glitch-crypto:GC-003"
-        ]
+        ],
+        "active_spec": "operations/specs/GCHP-003/spec.md"
       }
     }
   ],
