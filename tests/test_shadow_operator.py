@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -92,6 +93,24 @@ class ShadowOperatorTests(unittest.TestCase):
         self.assertNotIn("GLITCH_BINANCE_USDM_API_SECRET", value)
         self.assertEqual(value["OPENAI_API_KEY"], "provider-key")
         self.assertEqual(value["PATH"], "path-value")
+
+    def test_hermes_uses_the_profile_home_without_double_profile_routing(self) -> None:
+        with tempfile.TemporaryDirectory() as directory, patch.object(
+            operator, "profile_root", return_value=Path(directory)
+        ), patch.object(operator.subprocess, "run") as run:
+            run.return_value = subprocess.CompletedProcess(
+                ["hermes", "chat"], 0, stdout="{}", stderr=""
+            )
+            operator.invoke_hermes(
+                "hermes",
+                "prompt",
+                timeout_seconds=10,
+                cwd=Path(directory),
+            )
+        command = run.call_args.args[0]
+        self.assertEqual(command[:2], ["hermes", "chat"])
+        self.assertNotIn("-p", command)
+        self.assertEqual(run.call_args.kwargs["env"]["HERMES_HOME"], directory)
 
     def test_worker_consumes_one_fresh_event_and_submits_one_strict_intent(self) -> None:
         gateway = FakeGateway()

@@ -19,11 +19,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from cognition_contracts import ContractError, parse_model_intent
+from cognition_contracts import parse_model_intent
 from gateway_client import GatewayClient, profile_root
 
-PROFILE = "glitch-crypto"
-SESSION_NAME = "Glitch Crypto Trading"
 MAXIMUM_SEEN_EVENTS = 1_000
 
 
@@ -138,6 +136,9 @@ def run_shadow_operator(
                 _remember(seen, seen_set, event_id)
                 _save_state(paths["state"], seen, event_id, "expired")
                 continue
+            if _event_remaining_seconds(event) <= model_timeout + 5.0:
+                sleep(poll_seconds)
+                continue
             elapsed = time.monotonic() - last_model_call
             if elapsed < minimum_interval:
                 sleep(min(poll_seconds, minimum_interval - elapsed))
@@ -245,8 +246,6 @@ def invoke_hermes(
 ) -> str:
     command = [
         executable,
-        "-p",
-        PROFILE,
         "chat",
         "-Q",
         "--query-file",
@@ -297,14 +296,21 @@ def _same_fresh_event(packet: dict[str, Any], event_id: str) -> bool:
 
 
 def _event_is_fresh(event: dict[str, Any]) -> bool:
+    return _event_remaining_seconds(event) > 0
+
+
+def _event_remaining_seconds(event: dict[str, Any]) -> float:
     expires = event.get("expires_utc")
     if not isinstance(expires, str):
-        return False
+        return 0.0
     try:
         value = datetime.fromisoformat(expires.replace("Z", "+00:00"))
     except ValueError:
-        return False
-    return value.astimezone(timezone.utc) > datetime.now(timezone.utc)
+        return 0.0
+    return max(
+        0.0,
+        (value.astimezone(timezone.utc) - datetime.now(timezone.utc)).total_seconds(),
+    )
 
 
 def _sanitized_environment(source: Any) -> dict[str, str]:
