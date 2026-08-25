@@ -1,80 +1,103 @@
 {
-  "schema_version": "architectonic.rail.v1",
-  "metadata": {
-    "project": "glitch-crypto-hermes-profile",
-    "updated_utc": "2026-08-24T19:35:00Z",
-    "parent_map": "https://github.com/GlitchTrader/glitch-crypto/issues/1",
-    "status_authority": "operations/ledger.json"
-  },
-  "rail": {
-    "active": "GCHP-001",
-    "items": [
-      {
-        "id": "GCHP-001",
-        "title": "Establish the interactive protected crypto operator",
-        "status": "active",
-        "priority": "P0",
-        "dependencies": [
-          "GC-001"
-        ],
-        "ticket": "https://github.com/GlitchTrader/glitch-crypto/issues/2",
-        "spec": "operations/specs/GCHP-001/spec.md",
-        "acceptance": [
-          "no exchange credentials or direct venue mutation",
-          "deterministic status/start/stop/flatten/lock/limit commands",
-          "strict intent construction skill",
-          "noise-versus-edge and active-management doctrine",
-          "three-lane evidence-gated learning",
-          "distribution verification and tests pass"
-        ],
-        "evidence": [
-          "local: python3 scripts/verify_distribution.py — 30 distribution-owned files verified",
-          "local: python3 -m unittest discover -s tests -p test_*.py — 9/9 passing",
-          "local integration: deterministic profile client and slash-command handlers exercised against the live paper gateway smoke process",
-          "remote: architect/gchp-001-foundation commit c083e589b3205ec01c4f688302beadcff5023228",
-          "review: draft PR https://github.com/GlitchTrader/glitch-crypto-hermes-profile/pull/1 paired with https://github.com/GlitchTrader/glitch-crypto/pull/3"
-        ],
-        "notes": "Draft PR #1 is open and unmerged; GCHP-001 remains active until CI and coordinated review acceptance.",
-        "pull_request": "https://github.com/GlitchTrader/glitch-crypto-hermes-profile/pull/1",
-        "paired_pull_request": "https://github.com/GlitchTrader/glitch-crypto/pull/3"
-      },
-      {
-        "id": "GCHP-002",
-        "title": "Implement event-triggered candidate and position workers",
-        "status": "ready",
-        "priority": "P0",
-        "dependencies": [
-          "GCHP-001",
-          "GC-002",
-          "GC-003"
-        ],
-        "acceptance": [
-          "candidate events are durable and idempotent",
-          "position events preempt slower learning",
-          "strict output and bounded repair are proven",
-          "failed model calls create no new exposure"
-        ],
-        "evidence": [],
-        "notes": "Do not replace this with a blind one-minute polling loop."
-      },
-      {
-        "id": "GCHP-003",
-        "title": "Implement attributable three-lane learning supervisor",
-        "status": "blocked",
-        "priority": "P0",
-        "dependencies": [
-          "GCHP-002",
-          "GC-003"
-        ],
-        "acceptance": [
-          "completed and matured no-trade episodes are attributable",
-          "operational defects are quarantined",
-          "lesson promotion requires independent evidence and rollback",
-          "prompt/model treatments are versioned"
-        ],
-        "evidence": [],
-        "notes": "No self-editing production loop."
+  "schema_version": "1.0",
+  "project": "glitch-crypto-hermes-profile",
+  "updated": "2026-08-25T00:34:52Z",
+  "roadmap_ref": "https://github.com/GlitchTrader/glitch-crypto/issues/1",
+  "items": [
+    {
+      "id": "GCHP-001",
+      "title": "Establish the interactive protected crypto operator",
+      "status": "done",
+      "priority": "P0",
+      "owner_role": "builder",
+      "acceptance": [
+        "The profile must contain no exchange credential or direct venue mutation tool.",
+        "Status, start, stop, flatten, daily-lock, and usable-limit commands must be deterministic.",
+        "The intent construction skill must emit the strict paired schema.",
+        "The profile must preserve noise-versus-edge and active-management doctrine.",
+        "The profile must define three separate evidence-gated learning lanes.",
+        "Distribution verification and all tests must pass."
+      ],
+      "depends_on": [],
+      "evidence": [
+        "Profile foundation merged on main at 9d465211369cee1eb8d8cbfa4023948ab6bba63e.",
+        "The paired gateway foundation merged on main at 9523969756d451ddc371a5d542498dadafd325ee.",
+        "Distribution verification and 9 of 9 deterministic tests passed before merge.",
+        "The deterministic client and slash-command handlers were exercised against the paper gateway smoke process."
+      ],
+      "sources": [
+        "https://github.com/GlitchTrader/glitch-crypto/issues/2",
+        "operations/specs/GCHP-001/spec.md",
+        "docs/AUTHORITY.md"
+      ],
+      "completed_at": "2026-08-24T23:46:30Z",
+      "notes": "This item accepts source and package contracts only; it does not prove installation, activation, venue readiness, or profitability."
+    },
+    {
+      "id": "GCHP-002",
+      "title": "Implement event-triggered candidate and position workers",
+      "status": "blocked",
+      "priority": "P0",
+      "owner_role": "builder",
+      "acceptance": [
+        "Candidate events must be durable and idempotent.",
+        "Position events must preempt slower candidate and learning work.",
+        "Strict output and bounded repair must be proven.",
+        "A failed model call must create no new exposure."
+      ],
+      "depends_on": [
+        "GCHP-001"
+      ],
+      "evidence": [],
+      "sources": [
+        "operations/ontology.md",
+        "docs/AUTHORITY.md"
+      ],
+      "blocked_reason": "The gateway venue adapter and calibrated event contracts in GC-002 and GC-003 are not accepted.",
+      "notes": "Do not replace event triggers with a blind one-minute polling loop.",
+      "extensions": {
+        "external_dependencies": [
+          "glitch-crypto:GC-002",
+          "glitch-crypto:GC-003"
+        ]
       }
-    ]
+    },
+    {
+      "id": "GCHP-003",
+      "title": "Implement the attributable three-lane learning supervisor",
+      "status": "blocked",
+      "priority": "P0",
+      "owner_role": "builder",
+      "acceptance": [
+        "Completed trades and matured no-trade episodes must remain attributable.",
+        "Operational defects must remain quarantined from market learning.",
+        "Lesson promotion must require independent evidence and rollback.",
+        "Prompt and model treatments must be versioned."
+      ],
+      "depends_on": [
+        "GCHP-002"
+      ],
+      "evidence": [],
+      "blocked_reason": "GCHP-002 and the gateway replay baseline in GC-003 are not done.",
+      "notes": "The production profile must not contain a self-editing loop.",
+      "extensions": {
+        "external_dependencies": [
+          "glitch-crypto:GC-003"
+        ]
+      }
+    }
+  ],
+  "extensions": {
+    "status_authority": "operations/ledger.json",
+    "delivery": "direct-main",
+    "methodology": [
+      "wayfinder",
+      "to-spec",
+      "to-tickets",
+      "github-spec-kit",
+      "architectonic-ontology",
+      "architectonic-rail"
+    ],
+    "paired_repository": "https://github.com/GlitchTrader/glitch-crypto"
   }
 }
