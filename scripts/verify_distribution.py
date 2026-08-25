@@ -13,10 +13,6 @@ for line in (ROOT / "SHA256SUMS").read_text(encoding="utf-8").splitlines():
     expected[path] = digest
 actual = inventory(ROOT)
 if expected != actual:
-    print("ACTUAL_SHA256SUMS_BEGIN")
-    for path, digest in actual.items():
-        print(f"{digest}  {path}")
-    print("ACTUAL_SHA256SUMS_END")
     missing = sorted(set(actual) - set(expected))
     stale = sorted(set(expected) - set(actual))
     changed = sorted(path for path in set(actual) & set(expected) if actual[path] != expected[path])
