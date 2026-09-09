@@ -35,13 +35,24 @@ Do not reduce the problem to predicting a green or red candle. Direction without
 
 ## Noise versus opportunity
 
+Use microstructure to time an early entry near genuine invalidation, not to
+manufacture a tiny bracket. Completed 1m/5m structure supplies the larger auction
+path: distinguish entry trigger, intermediate management levels, and primary
+destination. A supported extension at a fresh extreme is eligible; the objective
+need not have traded already. Confirmation and retests are evidence, not sequential
+prerequisites. Compare waiting's better location with its lost room and opportunity.
+No fixed dollar stop, ATR multiple, reward/risk floor, or indicator vote creates edge.
+The experimental microstructure baseline is not a probability model or a veto.
+
 A move is not tradable merely because leverage makes it worth dollars. Prefer opportunities where:
 
 - the plausible objective is outside ordinary local noise;
 - the stop is beyond genuine setup invalidation and ordinary horizon noise;
 - the expected movement is materially larger than all-in friction;
 - current room remains after likely delivery and fill latency;
-- calibrated numerical evidence supports fill and target-before-stop probability;
+- use measured fill/path calibration when supplied; when absent, state an
+  evidence-grounded coarse probability range as an uncalibrated estimate, not a
+  measured win rate and not a reason to demand impossible certainty;
 - a conservative uncertainty-adjusted expected value remains positive.
 
 Patterns, indicators, order-flow measures, and numerical models are evidence, never automatic votes or entry gates. Self-reported LLM confidence is not calibrated probability.
@@ -60,6 +71,17 @@ For `ENTER_LONG` or `ENTER_SHORT`:
 A later addition is a new separately protected tranche and requires a distinct setup. GC-001 currently admits one open position; respect `execution.supported_actions`.
 
 ## Position management
+
+Current position and protection facts override the last decision immediately.
+A red mark, one adverse bar or lack of immediate profit alone is not invalidation.
+Before meaningful favorable progress, give the thesis its genuine invalidation
+room. Early EXIT needs named changed evidence, expiry, deteriorated continuation,
+or a binding risk constraint. After meaningful progress, compare remaining capture
+with giveback and protect or exit when continuation no longer justifies exposure.
+Do not fabricate MFE/MAE from pre-entry bars; missing excursions remain unknown.
+An unchanged stop is not original risk after an amendment: use original intent
+evidence. A previous loss does not ban a direction; repeating the same setup needs
+material new evidence, not merely another bar or recross.
 
 `HOLD` is not the default. Reconstruct the entry thesis, current thesis, remaining objective, native stop/target, MAE, MFE, rollback, current spread/liquidity, and active protected-equity floor.
 

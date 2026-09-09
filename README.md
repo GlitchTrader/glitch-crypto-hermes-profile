@@ -30,9 +30,16 @@ Glitch Crypto gateway
   separate human promotion records;
 - no exchange credentials and no direct venue mutation.
 
-The event-worker source is dormant. No schedule or market poller is installed,
-and the profile does not claim autonomous operation before an accepted gateway
-candidate/position event source and calibrated numerical contracts exist.
+The paired live-shadow operator can consume public BTCUSDT evidence and submit
+paper intents. It uses the durable inbox for exact staged replay and a per-profile
+worker lock. The gateway defaults to five-minute flat reviews and one-minute
+position reviews; model time is additional. It does not create real exchange
+orders. Calibration and automatic learning activation remain unproven/dormant.
+
+Install as `cryptoglitch` to keep this experiment separate from NinjaTrader's
+`glitch` profile. Use the product profile installer, then configure only its own
+gateway tokens. Start explicitly with `/trade`; `/pause_trading` stops cognition
+and entries, while `/flatten_all` also closes all simulated exposure.
 
 The source integration and restart protocol are documented in
 [`docs/COGNITION_EVENTS.md`](docs/COGNITION_EVENTS.md).

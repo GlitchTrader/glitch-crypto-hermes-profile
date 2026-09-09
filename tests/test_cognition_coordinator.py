@@ -96,6 +96,22 @@ class CognitionCoordinatorTests(unittest.TestCase):
             reopened.close()
 
 
+    def test_nonterminal_receipt_remains_staged_not_completed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            inbox = CognitionInbox(Path(directory) / "inbox.sqlite", now=fixed_now)
+            inbox.enqueue(candidate_event())
+            gateway = FakeGateway(packet())
+            gateway.submit_intent = lambda intent: {"schema_version": "glitch.crypto.intent-receipt.v1",
+                "intent_id": intent["intent_id"], "state": "rejected", "accepted": False,
+                "reason": "intent_is_nonterminal_and_requires_reconciliation"}
+            coordinator = CognitionCoordinator(inbox, gateway)
+            claim = coordinator.claim_next("worker")
+            with self.assertRaises(ContractError):
+                coordinator.stage_and_submit(claim, json.dumps(entry_intent()))
+            self.assertEqual(inbox.get(claim.event["event_id"])["state"], "intent_staged")
+            inbox.close()
+
+
 def fixed_now() -> datetime:
     return datetime(2026, 8, 25, 1, 1, tzinfo=timezone.utc)
 

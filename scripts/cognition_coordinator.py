@@ -86,6 +86,8 @@ class CognitionCoordinator:
             raise
         try:
             _require_receipt_matches(staged, receipt)
+            if receipt.get("state") in {"ambiguous", "pending", "visibility_pending"} or receipt.get("reason") == "intent_is_nonterminal_and_requires_reconciliation":
+                raise ContractError("gateway outcome remains nonterminal; retain exact staged intent")
         except Exception as error:
             self.inbox.release_staged(
                 claim.event["event_id"],

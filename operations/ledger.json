@@ -5,6 +5,17 @@
   "roadmap_ref": "https://github.com/GlitchTrader/glitch-crypto/issues/1",
   "items": [
     {
+      "id": "GCHP-004",
+      "title": "Activate separate CryptoGlitch paper operator with inherited NT safeguards",
+      "status": "in_progress",
+      "priority": "P0",
+      "owner_role": "builder",
+      "depends_on": ["GCHP-001", "GCHP-002"],
+      "sources": ["operations/specs/GCHP-004/spec.md"],
+      "notes": "User-authorized paper-only observation, not exchange mutation or automatic learning promotion.",
+      "evidence": []
+    },
+    {
       "id": "GCHP-001",
       "title": "Establish the interactive protected crypto operator",
       "status": "done",

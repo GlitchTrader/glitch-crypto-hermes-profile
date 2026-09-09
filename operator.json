@@ -13,7 +13,7 @@
   "loops": [
     {
       "id": "candidate_decision",
-      "trigger": "durable candidate event from a future accepted gateway event source; source boundary implemented but not scheduled",
+      "trigger": "healthy live-market paper review event; five-minute default flat cadence plus model latency",
       "input_schema": "glitch.crypto.cognition-event.v1",
       "output_schema": "glitch.crypto.intent.v1",
       "execution_authority": false,
@@ -22,7 +22,7 @@
     },
     {
       "id": "position_management",
-      "trigger": "durable material position/risk event from a future accepted gateway event source; source boundary implemented but not scheduled",
+      "trigger": "current paper position event; one-minute default review cadence plus model latency",
       "input_schema": "glitch.crypto.cognition-event.v1",
       "output_schema": "glitch.crypto.intent.v1",
       "execution_authority": false,
@@ -50,7 +50,7 @@
     "fresh_install": "gateway stopped; no scheduled job installed by GCHP-001 or GCHP-002",
     "interactive_controls": true,
     "cognitive_overlay_default": "propose_only",
-    "event_worker_source": "dormant_until_gateway_event_contracts_are_accepted",
+    "event_worker_source": "paper_only_explicit_start_with_durable_inbox",
     "learning_supervisor_source": "dormant_until_gateway_episode_and_replay_contracts_are_accepted"
   }
 }
