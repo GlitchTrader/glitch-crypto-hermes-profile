@@ -4,12 +4,14 @@ import importlib.util
 import json
 import os
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 SPEC = importlib.util.spec_from_file_location(
     "shadow_operator", ROOT / "scripts" / "shadow_operator.py"
 )
@@ -72,7 +74,7 @@ class FakeGateway:
 
 
 class ShadowOperatorTests(unittest.TestCase):
-    def test_prompt_binds_identity_and_treats_baseline_as_uncalibrated(self) -> None:
+    def test_prompt_binds_identity_and_does_not_claim_calibration(self) -> None:
         packet = FakeGateway().packet()
         prompt = operator.build_shadow_prompt(
             packet, "11111111-1111-4111-8111-111111111111"
@@ -82,6 +84,96 @@ class ShadowOperatorTests(unittest.TestCase):
         self.assertIn("11111111-1111-4111-8111-111111111111", prompt)
         self.assertIn("a" * 64, prompt)
         self.assertNotIn("API_SECRET", prompt)
+        self.assertIn("do not generate a replacement intent_id", prompt)
+
+    def test_model_input_preserves_facts_without_baseline_recommendations(self) -> None:
+        packet = FakeGateway().packet()
+        packet["market_observation"].update({
+            "state": "actionable", "observation_id": "original-observation",
+            "evidence": {"momentum_15s_bps": 2, "range_15s_bps": 4,
+                "noise_15s_bps": 1, "directional_pressure_bps": 99},
+            "economics": {"conservative_edge_bps": -8, "minimum_edge_bps": 1.5},
+            "geometry": {"suggested_stop_price": 59999, "suggested_target_price": 60001},
+        })
+        packet["policy"]["estimated_round_trip_cost_pct"] = 0.1
+        packet["price_context"] = {"completed_1m": [{"close": 60000}], "windows": [{"minutes": 60}]}
+        packet["decision_event"].update({"suggested_action": "ENTER_LONG", "reason": "baseline advice"})
+        original = json.loads(json.dumps(packet))
+        compact = json.loads(operator.build_shadow_prompt(packet, "supplied-id").split("CURRENT_PACKET_JSON=", 1)[1])
+        facts = compact["market_observation"]
+        self.assertEqual(facts["data_state"], "ready")
+        self.assertEqual(facts["evidence"], {"momentum_15s_bps": 2, "range_15s_bps": 4, "noise_15s_bps": 1})
+        self.assertEqual(facts["market"], original["market_observation"]["market"])
+        for key in ("action", "actionable", "reason", "economics", "geometry"):
+            self.assertNotIn(key, facts)
+        self.assertNotIn("suggested_action", compact["decision_event"])
+        self.assertNotIn("reason", compact["decision_event"])
+        for key in ("packet_id", "state", "policy", "execution", "price_context", "recent_trades"):
+            self.assertEqual(compact[key], original[key])
+        self.assertEqual(packet, original, "the full journal packet must not be modified")
+
+        packet["market_observation"].update({"state": "ready", "action": "NOTHING", "actionable": False,
+            "economics": {"conservative_edge_bps": 400}, "geometry": None})
+        packet["decision_event"]["suggested_action"] = "NOTHING"
+        second = json.loads(operator.build_shadow_prompt(packet, "supplied-id").split("CURRENT_PACKET_JSON=", 1)[1])
+        self.assertEqual(compact, second, "baseline verdict must not change the model's evidence")
+        self.assertEqual(operator._market_facts({"state": "stale"})["data_state"], "stale")
+        self.assertIsNone(operator._market_facts(None))
+
+    def test_valid_entry_and_management_are_not_gated_by_baseline_nothing(self) -> None:
+        actions = {
+            "ENTER_LONG": {"stop_price": 59800, "target_price": 60600},
+            "ENTER_SHORT": {"stop_price": 60200, "target_price": 59400},
+            "HOLD": {"tranche_id": "owned"},
+            "MOVE_STOP": {"tranche_id": "owned", "stop_price": 59900},
+            "MOVE_TARGET": {"tranche_id": "owned", "target_price": 60400},
+            "REDUCE": {"tranche_id": "owned", "reduce_fraction_pct": 50},
+            "EXIT": {"tranche_id": "owned"},
+        }
+        for action, fields in actions.items():
+            with self.subTest(action=action), tempfile.TemporaryDirectory() as directory:
+                gateway = FakeGateway()
+                gateway.packet_value["market_observation"].update({"action": "NOTHING", "actionable": False})
+                gateway.packet_value["execution"]["supported_actions"] = [action]
+                if "tranche_id" in fields:
+                    gateway.packet_value["state"]["positions"] = [{"tranche_id": "owned", "side": "LONG"}]
+                    gateway.packet_value["decision_event"].update({"event_type": "POSITION", "position_tranche_ids": ["owned"]})
+                intent = {"schema_version": "glitch.crypto.intent.v1", "intent_id": "11111111-1111-4111-8111-111111111111",
+                    "packet_id": "a" * 64, "account": "paper-main", "instrument": "BTCUSDT-PERP",
+                    "action": action, "reason": "Supported structural path independent of diagnostic verdict.", **fields}
+                with patch.object(operator, "profile_root", return_value=Path(directory)), patch.object(
+                    operator, "invoke_hermes", return_value=json.dumps(intent)
+                ), patch.object(operator.uuid, "uuid4", return_value=intent["intent_id"]):
+                    operator.run_shadow_operator(hermes_executable="hermes", client=gateway, sleep=lambda _: None)
+                self.assertEqual(gateway.submitted, [intent])
+
+    def test_wrong_supplied_id_is_rejected_without_retry_or_submission(self) -> None:
+        gateway = FakeGateway()
+        def wrong_id(*args, **kwargs):
+            gateway.running = False
+            return json.dumps({"schema_version": "glitch.crypto.intent.v1",
+                "intent_id": "33333333-3333-4333-8333-333333333333", "packet_id": "a" * 64,
+                "account": "paper-main", "instrument": "BTCUSDT-PERP", "action": "NOTHING", "reason": "test"})
+        with tempfile.TemporaryDirectory() as directory, patch.object(
+            operator, "profile_root", return_value=Path(directory)
+        ), patch.object(operator, "invoke_hermes", side_effect=wrong_id) as model, patch.object(
+            operator.uuid, "uuid4", return_value="11111111-1111-4111-8111-111111111111"
+        ):
+            operator.run_shadow_operator(hermes_executable="hermes", client=gateway, sleep=lambda _: None)
+            records = [json.loads(line) for line in (Path(directory) / "state/shadow-operator/events.jsonl").read_text().splitlines()]
+        self.assertEqual(gateway.submitted, [])
+        self.assertEqual(model.call_count, 1)
+        self.assertTrue(any(item.get("error") == "ValueError:model changed the supplied intent ID" for item in records))
+
+    def test_stopped_gateway_spends_no_model_call(self) -> None:
+        gateway = FakeGateway()
+        gateway.running = False
+        with tempfile.TemporaryDirectory() as directory, patch.object(
+            operator, "profile_root", return_value=Path(directory)
+        ), patch.object(operator, "invoke_hermes", side_effect=AssertionError("no model while stopped")) as model:
+            operator.run_shadow_operator(hermes_executable="hermes", client=gateway, sleep=lambda _: None)
+        model.assert_not_called()
+        self.assertEqual(gateway.submitted, [])
 
     def test_environment_removes_exchange_credentials_only(self) -> None:
         value = operator._sanitized_environment(

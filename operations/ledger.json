@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "glitch-crypto-hermes-profile",
-  "updated": "2026-08-25T01:32:47Z",
+  "updated": "2026-09-10T02:03:00Z",
   "roadmap_ref": "https://github.com/GlitchTrader/glitch-crypto/issues/1",
   "items": [
     {
@@ -12,8 +12,13 @@
       "owner_role": "builder",
       "depends_on": ["GCHP-001", "GCHP-002"],
       "sources": ["operations/specs/GCHP-004/spec.md"],
-      "notes": "User-authorized paper-only observation, not exchange mutation or automatic learning promotion.",
-      "evidence": []
+      "notes": "Paper loop was observed end to end, then deliberately stopped to save model usage during API preparation. Version 0.3.2 removes uncalibrated baseline advice from model input, not from source/evidence or execution checks. No exchange mutation or automatic learning promotion is accepted by this item.",
+      "evidence": [
+        "Gateway df430e0 and profile 7a9de0d were published; installed profile payload was verified and natural paper decision receipts observed.",
+        "Pre-change paper decision/inbox evidence was checkpointed and hash-verified outside the repositories before profile replacement.",
+        "Regression tests cover baseline-independent input, unchanged market/cost/position facts, seven supported entry/management actions, wrong-ID rejection, and zero model calls while stopped.",
+        "Version 0.3.2 passed all 41 profile tests and 62-file distribution verification; the unchanged gateway passed all 152 tests. Input preservation was verified on 22 recorded packets without any model call or submission."
+      ]
     },
     {
       "id": "GCHP-001",

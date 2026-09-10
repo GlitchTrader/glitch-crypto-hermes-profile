@@ -24,3 +24,16 @@ worker exclusion, Windows liveness, and stale state. Installed source hashes
 match publication. A natural paper decision is observed. Profit remains unproven.
 
 Rollback stops only CryptoGlitch, preserving all paper evidence and NT state.
+
+## Evidence-driven correction, 2026-09-10
+
+The operator repeatedly treated the uncalibrated short-window baseline as the
+economics of a longer trade, and one output replaced the supplied intent ID.
+The authorized correction projects measured market facts into the model input,
+excluding the baseline's directional score, action, thresholds and bracket.
+Full original packets remain in the journal; actual policy costs, candles,
+position evidence, sizing, protection and rejection contracts remain unchanged.
+All identity instructions require the supplied ID; mismatch rejection remains.
+Validate baseline-independent inputs, fact preservation, valid entry/management,
+wrong-ID rejection, and zero model calls while stopped. Keep recurring paper
+cognition stopped during API preparation; an exchange test is a separate gate.

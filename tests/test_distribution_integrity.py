@@ -38,5 +38,8 @@ class InstalledDistributionTests(unittest.TestCase):
             soul = installed / "SOUL.md"
             soul.write_text("unexpected alteration", encoding="utf-8")
             self.assertNotEqual(inventory(ROOT)["SOUL.md"], inventory(installed)["SOUL.md"])
-            manifest.write_text(manifest.read_text(encoding="utf-8").replace("version: 0.3.1", "version: 9.0.0"), encoding="utf-8")
+            manifest.write_text("\n".join(
+                "version: intentionally-altered-test-version" if line.startswith("version:") else line
+                for line in manifest.read_text(encoding="utf-8").splitlines()
+            ) + "\n", encoding="utf-8")
             self.assertNotEqual(inventory(ROOT)["distribution.yaml"], inventory(installed)["distribution.yaml"])

@@ -42,7 +42,9 @@ destination. A supported extension at a fresh extreme is eligible; the objective
 need not have traded already. Confirmation and retests are evidence, not sequential
 prerequisites. Compare waiting's better location with its lost room and opportunity.
 No fixed dollar stop, ATR multiple, reward/risk floor, or indicator vote creates edge.
-The experimental microstructure baseline is not a probability model or a veto.
+Short-window measurements describe recent activity, not the maximum move available
+over a longer holding horizon. Build that path independently and compare its
+geometry with actual costs once; no experimental directional score is a veto.
 
 A move is not tradable merely because leverage makes it worth dollars. Prefer opportunities where:
 

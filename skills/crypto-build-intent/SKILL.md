@@ -12,7 +12,7 @@ Use only actions listed in the current packet's `execution.supported_actions`.
 ```json
 {
   "schema_version": "glitch.crypto.intent.v1",
-  "intent_id": "fresh UUID",
+  "intent_id": "exact supplied intent_id",
   "packet_id": "exact current packet_id",
   "account": "exact sanitized account alias",
   "instrument": "exact packet instrument",
@@ -21,6 +21,8 @@ Use only actions listed in the current packet's `execution.supported_actions`.
 }
 ```
 
+When the caller supplies an intent ID, copy it exactly; never generate a replacement.
+Generate a fresh UUID only for a new operator-authored intent with no supplied ID.
 Never reuse a UUID with changed content. Never include exchange credentials or native order IDs not explicitly supplied for selection.
 
 ## Entry
