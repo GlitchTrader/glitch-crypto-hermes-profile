@@ -17,6 +17,10 @@ class InstalledDistributionTests(unittest.TestCase):
             manifest = installed / "distribution.yaml"
             manifest.write_text(manifest.read_text(encoding="utf-8").replace(
                 "name: glitch-crypto\n", "name: cryptoglitch\n", 1), encoding="utf-8", newline="\n")
+            manifest.write_text(manifest.read_text(encoding="utf-8").replace(
+                'description: "Experimental Glitch Crypto AI operator profile"',
+                'description: Experimental Glitch Crypto AI operator profile'
+            ) + "installed_at: '2026-09-10T00:00:00Z'\n", encoding="utf-8", newline="\n")
             extra = installed / "skills" / "hermes-bundled" / "SKILL.md"
             extra.parent.mkdir(parents=True)
             extra.write_text("Not owned by this distribution", encoding="utf-8")

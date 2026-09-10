@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path
 
 
@@ -39,11 +40,37 @@ def inventory(profile_root: Path) -> dict[str, str]:
             if relative == "SHA256SUMS" or "__pycache__" in candidate.parts or candidate.suffix == ".pyc":
                 continue
             data = candidate.read_bytes()
-            if relative == "distribution.yaml" and profile_root.parent.name == "profiles":
-                # Hermes' supported --name override rewrites only this manifest
-                # identity. Verify all remaining bytes, including version/ownership.
-                installed = f"name: {profile_root.name}\n".encode()
-                if data.startswith(installed):
-                    data = b"name: glitch-crypto\n" + data[len(installed):]
+            if relative == "distribution.yaml":
+                # The installer serializes YAML and owns name/source/installed_at.
+                # Hash the complete distribution-owned semantic manifest instead;
+                # all non-manifest payload files still use exact byte hashes.
+                data = manifest_payload(data)
             result[relative] = hashlib.sha256(data).hexdigest()
     return dict(sorted(result.items()))
+
+
+def manifest_payload(data: bytes) -> bytes:
+    fields: dict[str, object] = {}
+    current_list: list[str] | None = None
+    for raw in data.decode("utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("- ") and current_list is not None:
+            current_list.append(line[2:].strip().strip("\"'"))
+            continue
+        if raw.startswith(" ") or ":" not in line:
+            raise RuntimeError("unsupported distribution manifest syntax")
+        key, value = line.split(":", 1)
+        if key in fields:
+            raise RuntimeError("duplicate distribution manifest key")
+        value = value.strip().strip("\"'")
+        if not value:
+            current_list = []
+            fields[key] = current_list
+        else:
+            current_list = None
+            fields[key] = value
+    for metadata in ("name", "source", "installed_at"):
+        fields.pop(metadata, None)
+    return json.dumps(fields, sort_keys=True, separators=(",", ":")).encode("utf-8")

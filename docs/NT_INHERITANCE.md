@@ -19,6 +19,10 @@ account policy, replication, UI, cron, schedules, or installed state.
 - Keep prospective packets/decisions/receipts. The learner remains proposal-only
   infrastructure, not a claimed self-improvement loop.
 - Separate CryptoGlitch profile/data/processes. NT remains untouched.
+- Installed distribution verification checks exact payload bytes and the semantic
+  manifest (version, requirements, description, author, owned paths). Hermes owns
+  manifest name/source/install timestamp metadata and YAML serialization; those
+  installation details are reported separately, not mistaken for payload drift.
 - Freeze this paper version for observation; later changes need a causal reason,
   bounded diff and tests. Zero trades and losses prompt investigation, not forced
   signals or blind parameter changes.
