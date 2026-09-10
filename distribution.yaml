@@ -13,7 +13,11 @@ distribution_owned:
   - .github
   - .specify
   - operations
-  - skills
+  - skills/crypto-market
+  - skills/crypto-build-intent
+  - skills/crypto-position-management
+  - skills/crypto-event-worker
+  - skills/crypto-learn
   - plugins
   - scripts
   - tests

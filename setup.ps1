@@ -13,7 +13,9 @@ if (-not (Test-Path (Join-Path $root '.env'))) {
 }
 
 & $python.Source (Join-Path $root 'scripts\verify_distribution.py')
+if ($LASTEXITCODE -ne 0) { throw 'Profile distribution verification failed; do not activate.' }
 & $python.Source -m unittest discover -s tests -p 'test_*.py'
+if ($LASTEXITCODE -ne 0) { throw 'Profile tests failed; do not activate.' }
 
 Write-Host 'Glitch Crypto profile verified.'
 Write-Host 'No scheduled trading job is installed by GCHP-001 or GCHP-002; use the interactive profile and deterministic slash commands.'

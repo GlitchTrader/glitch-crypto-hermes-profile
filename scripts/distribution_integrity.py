@@ -38,5 +38,12 @@ def inventory(profile_root: Path) -> dict[str, str]:
             relative = candidate.relative_to(profile_root).as_posix()
             if relative == "SHA256SUMS" or "__pycache__" in candidate.parts or candidate.suffix == ".pyc":
                 continue
-            result[relative] = hashlib.sha256(candidate.read_bytes()).hexdigest()
+            data = candidate.read_bytes()
+            if relative == "distribution.yaml" and profile_root.parent.name == "profiles":
+                # Hermes' supported --name override rewrites only this manifest
+                # identity. Verify all remaining bytes, including version/ownership.
+                installed = f"name: {profile_root.name}\n".encode()
+                if data.startswith(installed):
+                    data = b"name: glitch-crypto\n" + data[len(installed):]
+            result[relative] = hashlib.sha256(data).hexdigest()
     return dict(sorted(result.items()))
